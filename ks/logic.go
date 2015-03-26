@@ -38,7 +38,7 @@ func validKeyForUser(userid, email string, key []byte) (ok bool) {
 		glog.Errorf("Expected one identity, got %d.\n%+v", len(identities), identities)
 		return false
 	}
-	var uid_email string
+	var uidEmail string
 	for _, v := range identities {
 		// This loop will only execute once...
 		u := v.UserId
@@ -46,9 +46,9 @@ func validKeyForUser(userid, email string, key []byte) (ok bool) {
 			glog.Errorf("too many fields filled (names and comments prohibited): got %+v", u)
 			return false
 		}
-		uid_email = u.Email
-		if uid_email == "" || uid_email != email {
-			glog.Errorf("email address in identity did not agree with email address passed in: got %s, wanted %s", uid_email, email)
+		uidEmail = u.Email
+		if uidEmail == "" || uidEmail != email {
+			glog.Errorf("email address in identity did not agree with email address passed in: got %s, wanted %s", uidEmail, email)
 			return false
 		}
 	}

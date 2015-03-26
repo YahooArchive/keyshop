@@ -1,6 +1,9 @@
+// Copyright 2015 Yahoo!
+// Author:  David Leon Gil (dgil@yahoo-inc.com)
+// License: Apache 2
 package ks
 
-// DKeys represent the key for a single device.
+// A DKey represents the key for a single device.
 type DKey struct {
 	DeviceID  string `json:"deviceid"`
 	Key       string `json:"key"`
