@@ -86,7 +86,7 @@ func (s *state) NewOrUpdate(userid, deviceid, key []byte) (status int) {
 	err := s.db.Update(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucketIfNotExists(userid)
 		if err != nil {
-			glog.Errorf("error creating or getting %s/%s bucket: %s", userid)
+			glog.Errorf("error creating or getting %s/%s bucket: %s", userid, deviceid, err)
 			return err
 		}
 		b.Put(deviceid, key)
