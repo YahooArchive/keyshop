@@ -21,6 +21,18 @@ cloud HSMs would be accepted.
 (It's called keyshop because I have a low opinion of certificate
 authorities, which this essentially is.)
 
+## Building
+
+Just run:
+
+    go get github.com/yahoo/keyshop/ks/cmd/...
+
+and you'll have three new Go binaries in your `$GOPATH/bin`. If
+you are Yahoo-internal, you probably want to clone this repo to
+its import path. E.g.:
+
+    git clone $PARANOIDS_GIT/keyshop-oss.git ${GOPATH}/src/github.com/yahoo/keyshop
+
 ## TODO for open-source version
 
 Well, despite the disclaimer above, I probably will:
@@ -29,5 +41,4 @@ Well, despite the disclaimer above, I probably will:
 - Add sanitized test data.
 - Clean up and release the API conformance-test driver (which would
   then, effectively, be an implementation of a client in Python)
-- Add directions on how to build for folks who aren't hip enough to
-  know how to go get things.
+- Add directions on how to use, dangerously.
