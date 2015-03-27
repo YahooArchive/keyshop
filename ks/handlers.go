@@ -8,11 +8,10 @@ import (
 	"net/http"
 	"time"
 
-	"encoding/base64"
 	"encoding/json"
-
 	"github.com/golang/glog"
 	"github.com/gorilla/mux"
+	"github.com/yahoo/keyshop/yenc"
 )
 
 const (
@@ -66,7 +65,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 	// FIXME(OSS): This does not necessarily guarantee that the output
 	// is terminal-safe.
 	glog.V(4).Infof("got body of %s", encKey)
-	key, err = base64.RawURLEncoding.DecodeString(encKey)
+	key, err = yenc.RawURL64.DecodeString(encKey)
 	if err != nil {
 		glog.Warningf("invalid base64: %s", err)
 		w.WriteHeader(http.StatusBadRequest)
