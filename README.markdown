@@ -37,9 +37,9 @@ its import path. E.g.:
 
 From the repo root, run:
 
-   genkauth
-   ./scripts/mktls.sh
-   ks -alsologtostderr -v 4 -log_dir ./data/logs
+    genkauth
+    ./scripts/mktls.sh
+    ks -alsologtostderr -v 4 -log_dir ./data/logs
     
 
 ## TODO for open-source version
