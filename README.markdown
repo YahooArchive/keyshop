@@ -33,6 +33,15 @@ its import path. E.g.:
 
     git clone $PARANOIDS_GIT/keyshop-oss.git ${GOPATH}/src/github.com/yahoo/keyshop
 
+## Using
+
+From the repo root, run:
+
+   genkauth
+   ./scripts/mktls.sh
+   ks -alsologtostderr -v 4 -log_dir ./data/logs
+    
+
 ## TODO for open-source version
 
 Well, despite the disclaimer above, I probably will:
@@ -41,4 +50,3 @@ Well, despite the disclaimer above, I probably will:
 - Add sanitized test data.
 - Clean up and release the API conformance-test driver (which would
   then, effectively, be an implementation of a client in Python)
-- Add directions on how to use, dangerously.

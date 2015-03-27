@@ -21,7 +21,7 @@ import (
 	"strings"
 )
 
-const prefix = "data/"
+const prefix = "data/kauth/"
 
 var (
 	ecdsaCurve = flag.String("ecdsa-curve", "", "ECDSA curve to use to generate a key. Valid values are P224, P256, P384, P521")
