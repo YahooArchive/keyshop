@@ -23,6 +23,10 @@ authorities, which this essentially is.)
 
 ## Building
 
+Install an official [tarball](http://golang.org/doc/install#install)
+or use your platform-of-choice's package manager. Or do the right
+thing, and build [Go from source](https://go.googlesource.com).
+
 Just run:
 
     go get github.com/yahoo/keyshop/ks/cmd/...
@@ -31,12 +35,14 @@ and you'll have three new Go binaries in your `$GOPATH/bin`. If
 you are Yahoo-internal, you probably want to clone this repo to
 its import path. E.g.:
 
-    git clone $PARANOIDS_GIT/keyshop-oss.git ${GOPATH}/src/github.com/yahoo/keyshop
+    git clone $PARANOIDS_GIT/keyshop-oss.git \
+      ${GOPATH}/src/github.com/yahoo/keyshop
 
 ## Using
 
-From the repo root, run:
+Add `$GOPATH` to your path and
 
+    cd ${GOPATH}/src/github.com/yahoo/keyshop
     genkauth
     ./scripts/mktls.sh
     ks -alsologtostderr -v 4 -log_dir ./data/logs
