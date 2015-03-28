@@ -11,9 +11,9 @@ import (
 
 type handler func(w http.ResponseWriter, r *http.Request)
 
-func RequireAuth(f handler, forwrite bool) handler {
+func requireAuth(f handler, forwrite bool) handler {
 	if Config.SkipAuth {
-		glog.Infof("RequireAuth: skipping auth due to configuration")
+		glog.Infof("requireAuth: skipping auth due to configuration")
 		return func(w http.ResponseWriter, r *http.Request) {
 			glog.Infof("NOAUTH: request %+v", r)
 			f(w, r)

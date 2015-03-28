@@ -33,8 +33,8 @@ var (
 	//    {userid}
 	//    body.userid
 	// are identical.
-	Post = RequireAuth(post, true)
-	Get  = RequireAuth(get, false)
+	Post = requireAuth(post, true)
+	Get  = requireAuth(get, false)
 )
 
 func post(w http.ResponseWriter, r *http.Request) {
