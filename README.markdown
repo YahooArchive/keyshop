@@ -40,7 +40,7 @@ its import path. E.g.:
 
 ## Using
 
-Add `$GOPATH` to your path and
+Add `${GOPATH}/bin` to your path and
 
     cd ${GOPATH}/src/github.com/yahoo/keyshop
     genkauth
