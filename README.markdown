@@ -18,6 +18,9 @@ If you want to deploy this in a realistic environment, you may
 want to privilege-separate the key authority. PRs to support using
 cloud HSMs would be accepted.
 
+**Note: DO NOT deploy this in production using Go 1.4, unless you
+incorporate the broken-random-safe ECDSA patch [here](https://go-review.googlesource.com/#/c/3340/)**
+
 (It's called keyshop because I have a low opinion of certificate
 authorities, which this essentially is.)
 
@@ -55,4 +58,4 @@ Well, despite the disclaimer above, I probably will:
 - Add an API spec in some format that can be pretty-printed.
 - Add sanitized test data.
 - Clean up and release the API conformance-test driver (which would
-  then, effectively, be an implementation of a client in Python)
+  then, effectively, be an implementation of a client in Python).
