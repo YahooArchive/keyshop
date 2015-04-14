@@ -1,7 +1,7 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
-//
+
 // Package yenc implements Yahoo-internal baseX encodings, as well
 // as some other specialized baseX encodings used at Yahoo.
 // (This variant is cleaned up for vendoring into Keyshop.)

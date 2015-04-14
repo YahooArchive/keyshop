@@ -1,6 +1,7 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
+
 package ks
 
 import (
@@ -9,6 +10,7 @@ import (
 	"time"
 
 	"encoding/json"
+
 	"github.com/golang/glog"
 	"github.com/gorilla/mux"
 	"github.com/yahoo/keyshop/yenc"
