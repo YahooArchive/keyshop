@@ -28,7 +28,7 @@ authorities, which this essentially is.)
 
 Install an official [tarball](http://golang.org/doc/install#install)
 or use your platform-of-choice's package manager. Or do the right
-thing, and build [Go from source](https://go.googlesource.com).
+thing, and build [Go from source](http://golang.org/doc/install/source).
 
 Just run:
 
