@@ -1,6 +1,7 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
+
 package kauth
 
 import (
