@@ -1,6 +1,7 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
+
 package ks
 
 type config struct {
@@ -13,6 +14,7 @@ type config struct {
 }
 
 var (
+	// Config contains the default configuration for the keyshop.
 	Config = &config{
 		// Whether to do something sane or not.
 		UseTLS:   true,

@@ -1,6 +1,8 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
+
+// Package kauth contains key authority utility functions.
 package kauth
 
 import (
@@ -8,7 +10,7 @@ import (
 	"github.com/square/go-jose"
 )
 
-// A stub for a proper privileged-separated key authority.
+// Kauth is a stub for a proper privileged-separated key authority.
 type Kauth struct {
 	signer jose.Signer
 }

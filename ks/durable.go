@@ -1,6 +1,7 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
+
 package ks
 
 import (
@@ -19,12 +20,14 @@ var (
 	errNsu  = errors.New("no such user")
 )
 
+// Key contains the key data (user/devide id and a byte slice).
 type Key struct {
 	Userid   []byte
 	Deviceid []byte
 	Key      []byte
 }
 
+// KeyShop interface specifies methods expected from the keyshop.
 type KeyShop interface {
 	New(userid, deviceid, key []byte) int
 	Update(userid, deviceid, key []byte) int
@@ -36,6 +39,9 @@ type state struct {
 	KeyShop
 }
 
+// New creates a bolt database entry for the key and returns
+// result as an integer (using the http Status values:
+// 409 "Conflict", 201 "Created", 500 "Internal Server Error").
 func (s *state) New(userid, deviceid, key []byte) (status int) {
 	err := s.db.Update(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucketIfNotExists(userid)
@@ -61,6 +67,7 @@ func (s *state) New(userid, deviceid, key []byte) (status int) {
 	}
 }
 
+// Update updates the database entry for the key.
 func (s *state) Update(userid, deviceid, key []byte) (status int) {
 	err := s.db.Update(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucketIfNotExists(userid)
@@ -82,6 +89,7 @@ func (s *state) Update(userid, deviceid, key []byte) (status int) {
 	return http.StatusOK
 }
 
+// NewOrUpdate creates or updates the database entry for the key.
 func (s *state) NewOrUpdate(userid, deviceid, key []byte) (status int) {
 	err := s.db.Update(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucketIfNotExists(userid)
@@ -98,6 +106,7 @@ func (s *state) NewOrUpdate(userid, deviceid, key []byte) (status int) {
 	return http.StatusOK
 }
 
+// Get returns the key for the given user.
 func (s *state) Get(userid string) (keys map[string]string, status int) {
 	keys = make(map[string]string)
 	err := s.db.View(func(tx *bolt.Tx) error {

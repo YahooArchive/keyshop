@@ -1,6 +1,7 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
+
 package ks
 
 import (
@@ -11,6 +12,9 @@ import (
 
 type handler func(w http.ResponseWriter, r *http.Request)
 
+// requireAuth returns a handler. Note that the "forwrite"
+// parameter is unused in this stub version but could be
+// used to return different handlers for GET and POST requests.
 func requireAuth(f handler, forwrite bool) handler {
 	if Config.SkipAuth {
 		glog.Infof("requireAuth: skipping auth due to configuration")
