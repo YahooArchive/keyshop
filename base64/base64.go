@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package base64 implements a web-friendly variation of base64 encoding
+// (typically used at Yahoo).
 package base64
 
 import (
@@ -29,8 +31,10 @@ type Encoding struct {
 }
 
 const (
+	// StdPadding is the standard padding character.
 	StdPadding rune = '=' // Standard padding character
-	NoPadding  rune = -1  // No padding
+	// NoPadding sentinel value indicates that no padding should be performed.
+	NoPadding rune = -1 // No padding
 )
 
 const encodeStd = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -81,7 +85,7 @@ var URLEncoding = NewEncoding(encodeURL)
 // This is the same as StdEncoding but omits padding characters.
 var RawStdEncoding = StdEncoding.WithPadding(NoPadding)
 
-// URLEncoding is the unpadded alternate base64 encoding defined in RFC 4648.
+// RawURLEncoding is the unpadded alternate base64 encoding defined in RFC 4648.
 // It is typically used in URLs and file names.
 // This is the same as URLEncoding but omits padding characters.
 var RawURLEncoding = URLEncoding.WithPadding(NoPadding)
@@ -267,9 +271,10 @@ func (enc *Encoding) EncodedLen(n int) int {
  * Decoder
  */
 
-type CorruptInputError int64
+// ErrCorruptInput defines an error type for corrupted input.
+type ErrCorruptInput int64
 
-func (e CorruptInputError) Error() string {
+func (e ErrCorruptInput) Error() string {
 	return "illegal base64 data at input byte " + strconv.FormatInt(int64(e), 10)
 }
 
@@ -287,7 +292,7 @@ func (enc *Encoding) decode(dst, src []byte) (n int, end bool, err error) {
 		for j := range dbuf {
 			if len(src) == 0 {
 				if enc.padChar != NoPadding || j < 2 {
-					return n, false, CorruptInputError(olen - len(src) - j)
+					return n, false, ErrCorruptInput(olen - len(src) - j)
 				}
 				dinc, dlen, end = j-1, j, true
 				break
@@ -299,29 +304,29 @@ func (enc *Encoding) decode(dst, src []byte) (n int, end bool, err error) {
 				switch j {
 				case 0, 1:
 					// incorrect padding
-					return n, false, CorruptInputError(olen - len(src) - 1)
+					return n, false, ErrCorruptInput(olen - len(src) - 1)
 				case 2:
 					// "==" is expected, the first "=" is already consumed.
 					if len(src) == 0 {
 						// not enough padding
-						return n, false, CorruptInputError(olen)
+						return n, false, ErrCorruptInput(olen)
 					}
 					if rune(src[0]) != enc.padChar {
 						// incorrect padding
-						return n, false, CorruptInputError(olen - len(src) - 1)
+						return n, false, ErrCorruptInput(olen - len(src) - 1)
 					}
 					src = src[1:]
 				}
 				if len(src) > 0 {
 					// trailing garbage
-					err = CorruptInputError(olen - len(src))
+					err = ErrCorruptInput(olen - len(src))
 				}
 				dinc, dlen, end = 3, j, true
 				break
 			}
 			dbuf[j] = enc.decodeMap[in]
 			if dbuf[j] == 0xFF {
-				return n, false, CorruptInputError(olen - len(src) - 1)
+				return n, false, ErrCorruptInput(olen - len(src) - 1)
 			}
 		}
 
@@ -347,7 +352,7 @@ func (enc *Encoding) decode(dst, src []byte) (n int, end bool, err error) {
 // Decode decodes src using the encoding enc.  It writes at most
 // DecodedLen(len(src)) bytes to dst and returns the number of bytes
 // written.  If src contains invalid base64 data, it will return the
-// number of bytes successfully written and CorruptInputError.
+// number of bytes successfully written and ErrCorruptInput.
 // New line characters (\r and \n) are ignored.
 func (enc *Encoding) Decode(dst, src []byte) (n int, err error) {
 	src = bytes.Map(enc.removeCharMapper, src)

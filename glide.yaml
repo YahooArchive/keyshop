@@ -1,0 +1,16 @@
+package: github.com/yahoo/keyshop
+import:
+- package: github.com/boltdb/bolt
+- package: github.com/codegangsta/cli
+- package: github.com/golang/glog
+- package: github.com/gorilla/context
+- package: github.com/gorilla/mux
+- package: github.com/square/go-jose
+  subpackages:
+  - cipher
+  - json
+- package: golang.org/x/crypto
+  subpackages:
+  - cast5
+  - openpgp
+  - sha3

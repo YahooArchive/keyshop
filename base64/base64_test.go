@@ -63,7 +63,7 @@ func rawRef(ref string) string {
 }
 
 // Both URL and unpadding conversions
-func rawUrlRef(ref string) string {
+func rawURLRef(ref string) string {
 	return rawRef(urlRef(ref))
 }
 
@@ -83,7 +83,7 @@ var encodingTests = []encodingTest{
 	encodingTest{StdEncoding, stdRef},
 	encodingTest{URLEncoding, urlRef},
 	encodingTest{RawStdEncoding, rawRef},
-	encodingTest{RawURLEncoding, rawUrlRef},
+	encodingTest{RawURLEncoding, rawURLRef},
 	encodingTest{funnyEncoding, funnyRef},
 }
 
@@ -226,7 +226,7 @@ func TestDecodeCorrupt(t *testing.T) {
 			continue
 		}
 		switch err := err.(type) {
-		case CorruptInputError:
+		case ErrCorruptInput:
 			testEqual(t, "Corruption in %q at offset %v, want %v", tc.input, int(err), tc.offset)
 		default:
 			t.Error("Decoder failed to detect corruption in", tc)
@@ -382,7 +382,7 @@ bqbPb06551Y4
 
 func TestDecoderIssue7733(t *testing.T) {
 	s, err := StdEncoding.DecodeString("YWJjZA=====")
-	want := CorruptInputError(8)
+	want := ErrCorruptInput(8)
 	if !reflect.DeepEqual(want, err) {
 		t.Errorf("Error = %v; want CorruptInputError(8)", err)
 	}

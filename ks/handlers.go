@@ -1,17 +1,18 @@
 // Copyright 2015 Yahoo
 // Author:  David Leon Gil (dgil@yahoo-inc.com)
 // License: Apache 2
+
 package ks
 
 import (
+	"encoding/base64"
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"time"
 
-	"encoding/json"
 	"github.com/golang/glog"
 	"github.com/gorilla/mux"
-	"github.com/yahoo/keyshop/yenc"
 )
 
 const (
@@ -34,7 +35,9 @@ var (
 	//    body.userid
 	// are identical.
 	Post = requireAuth(post, true)
-	Get  = requireAuth(get, false)
+
+	// Get is a handler for GET requests.
+	Get = requireAuth(get, false)
 )
 
 func post(w http.ResponseWriter, r *http.Request) {
@@ -65,7 +68,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 	// FIXME(OSS): This does not necessarily guarantee that the output
 	// is terminal-safe.
 	glog.V(4).Infof("got body of %s", encKey)
-	key, err = yenc.RawURL64.DecodeString(encKey)
+	key, err = base64.URLEncoding.DecodeString(encKey)
 	if err != nil {
 		glog.Warningf("invalid base64: %s", err)
 		w.WriteHeader(http.StatusBadRequest)
